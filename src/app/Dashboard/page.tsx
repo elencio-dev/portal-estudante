@@ -7,7 +7,7 @@ import CreatePostDialog from '@/components/CreatePostDialog';
 import SearchComponent from '@/components/SearchComponent';
 
 
-export default function Dashboard({ session }: { session: any }) {
+export default function Dashboard() {
   const [documents, setDocuments] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
