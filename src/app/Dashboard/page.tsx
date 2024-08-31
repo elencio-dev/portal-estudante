@@ -5,16 +5,19 @@ import { useEffect, useState } from "react";
 import DocumentsData from '@/components/documents-data';
 import CreatePostDialog from '@/components/CreatePostDialog';
 import SearchComponent from '@/components/SearchComponent';
-
+import { useSession } from "next-auth/react";
 
 export default function Dashboard() {
+  const { status } = useSession();
   const [documents, setDocuments] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    fetchDocuments();
-  }, []);
+    if (status === "authenticated") {
+      fetchDocuments();
+    }
+  }, [status]);
 
   const fetchDocuments = async () => {
     try {
@@ -46,6 +49,14 @@ export default function Dashboard() {
   }
 
   const displayDocuments = isSearching ? searchResults : documents;
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
+
+  if (status === "unauthenticated") {
+    return <div>Access Denied</div>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
