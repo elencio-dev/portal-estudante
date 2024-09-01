@@ -48,7 +48,11 @@ export default function Login() {
         router.push('/Home');
       }
     } catch (error) {
-      console.error('An unexpected error occurred:', error);
+      if (error instanceof SyntaxError) {
+        console.error('An unexpected error occurred: Invalid JSON response');
+      } else {
+        console.error('An unexpected error occurred:', error);
+      }
     }
   }
 

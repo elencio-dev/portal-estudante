@@ -24,9 +24,15 @@ export const authOptions: AuthOptions = {
           throw new Error("User not found");
         }
 
-        const currentHashedPassword = await bcrypt.hash(credentials.password, 12);
+        const isPasswordCorrect = await bcrypt.compare(
+          credentials.password,
+          user.hashedPassword
+        );
 
-        bcrypt.compare(currentHashedPassword, user.hashedPassword)
+        if (!isPasswordCorrect) {
+          throw new Error("Senha incorreta");
+        }
+
         return user;
       },
     }),
