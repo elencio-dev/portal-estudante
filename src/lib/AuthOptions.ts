@@ -29,8 +29,10 @@ export const authOptions: AuthOptions = {
         bcrypt.compare(currentHashedPassword, user.hashedPassword)
 
         return user;
-      },
+
+      }
     }),
+
   ],
   secret: process.env.NEXTAUTH_SECRET,
   session: {
