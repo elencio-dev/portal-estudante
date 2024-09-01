@@ -1,6 +1,7 @@
 "use client"; // Add this at the top
 
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 
@@ -12,7 +13,10 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
         <div className="flex items-center">
           <Link href="/">
-            <h1 className="text-xl font-bold text-gray-800">Portal do Estudante Proativo</h1>
+            <div className="flex items-center">
+              <Image src="/Logo.png" alt="PEPRO Logo" width={40} height={40} className="mr-2 rounded" />
+              <h1 className="text-xl font-bold text-gray-800">PEPRO</h1>
+            </div>
           </Link>
         </div>
         {/* Navigation menu */}

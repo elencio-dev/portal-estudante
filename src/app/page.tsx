@@ -17,7 +17,7 @@ export default function Home() {
             <li>Listas de exercícios resolvidos</li>
             <li>Testes práticos com gabaritos</li>
           </ul>
-          <span className="text-sm mb-4 text-gray-700">O material disponibilizado é para ajudar no entendimento da matéria, e não apenas para copiar</span>
+          <span className="text-lg mb-4 text-gray-700">O material disponibilizado é para ajudar no entendimento da matéria, e não apenas para copiar</span>
         </div>
       </div>
       <Login />
