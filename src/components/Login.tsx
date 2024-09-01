@@ -41,22 +41,14 @@ export default function Login() {
         redirect: false,
       });
 
-      router.push('/Dashboard');
-
       if (result?.error) {
         console.error('Login failed:', result.error);
-        // Handle login error, e.g., show an error message to the user
       } else if (result?.ok) {
         console.log('Login successful');
-        // Handle successful login, e.g., redirect to dashboard
-        // You might want to use Next.js router to redirect
-        // import { useRouter } from 'next/router';
-        // const router = useRouter();
-        // router.push('/dashboard');
+        router.push('/Home');
       }
     } catch (error) {
       console.error('An unexpected error occurred:', error);
-      // Handle unexpected errors
     }
   }
 
