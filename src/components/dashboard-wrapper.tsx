@@ -12,5 +12,5 @@ export default async function DashboardWrapper() {
     redirect("/");
   }
 
-  return <Dashboard session={session} />;
+  return <Dashboard />;
 }

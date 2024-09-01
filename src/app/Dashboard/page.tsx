@@ -6,11 +6,12 @@ import DocumentsData from '@/components/documents-data';
 import CreatePostDialog from '@/components/CreatePostDialog';
 import SearchComponent from '@/components/SearchComponent';
 import { useSession } from "next-auth/react";
+import { Session } from "next-auth";
 
 export default function Dashboard() {
   const { status } = useSession();
-  const [documents, setDocuments] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
+  const [documents, setDocuments] = useState<any[]>([]);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
