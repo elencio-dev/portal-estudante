@@ -10,9 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "PEPRO",
   description: "Faça upload dos teus trabalhos, listas, testes passados para ajudar que estão a cursar á displina",
-  icons: {
-    icon: 'public/Logo.png',
-  },
 };
 
 export default function RootLayout({
