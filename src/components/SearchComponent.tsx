@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { Input } from "./ui/input";
 
 export default function SearchComponent({ handleSearch }: any) {

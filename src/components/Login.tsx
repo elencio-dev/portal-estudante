@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -16,6 +15,8 @@ import {
 import { Input } from "@/components/ui/input"
 import { signIn } from "next-auth/react"
 import { useRouter } from 'next/navigation';
+import { toast } from "@/hooks/use-toast"
+import { useState } from 'react';
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -24,6 +25,7 @@ const formSchema = z.object({
 
 export default function Login() {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,7 +35,7 @@ export default function Login() {
   });
 
   async function handleFunction(values: z.infer<typeof formSchema>) {
-
+    setLoading(true);
     try {
       const result = await signIn('credentials', {
         email: values.email,
@@ -44,7 +46,10 @@ export default function Login() {
       if (result?.error) {
         console.error('Login failed:', result.error);
       } else if (result?.ok) {
-        console.log('Login successful');
+        toast({
+          title: "Documento cadastrado com sucesso!",
+          description: "Feliz com o seu Upload",
+        });
         router.push('/Home');
       }
     } catch (error) {
@@ -53,6 +58,8 @@ export default function Login() {
       } else {
         console.error('An unexpected error occurred:', error);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -101,8 +108,9 @@ export default function Login() {
             <Button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+              disabled={loading}
             >
-              Entrar
+              {loading ? 'Carregando...' : 'Entrar'}
             </Button>
           </div>
         </form>

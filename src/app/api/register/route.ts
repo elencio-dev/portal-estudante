@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const { email, password } = body;
 
     if (!email || !password) {
-      return new NextResponse("Missing fields", { status: 400 });
+      return new NextResponse("Campos vazios", { status: 400 });
     }
 
     const userAlreadyExists = await prisma.user.findUnique({
@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     });
 
     if (userAlreadyExists) {
-      return new NextResponse("User already exists", { status: 400 });
+      return new NextResponse("Usuário existente", { status: 400 });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);

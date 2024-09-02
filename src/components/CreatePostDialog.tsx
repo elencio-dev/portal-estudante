@@ -38,6 +38,7 @@ const formSchema = z.object({
 
 export default function CreatePostDialog() {
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const { reset } = useForm()
   const form = useForm<z.infer<typeof formSchema>>({
@@ -74,8 +75,8 @@ export default function CreatePostDialog() {
           title: "Documento cadastrado com sucesso!",
           description: "Feliz com o seu Upload",
         });
-        reset()
-        // fetchDocuments(); // Recarregar documentos se necessário
+        reset();
+        setOpen(false); // Fechar o modal
       } else {
         console.error(response.data.error);
         alert("Erro ao cadastrar o documento.");
@@ -92,7 +93,7 @@ export default function CreatePostDialog() {
 
   return (
     <>
-      <Dialog>
+      <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="outline">Cadastrar Documento</Button>
         </DialogTrigger>

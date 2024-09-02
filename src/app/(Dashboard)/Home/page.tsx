@@ -6,7 +6,7 @@ import DocumentsData from '@/components/documents-data';
 import CreatePostDialog from '@/components/CreatePostDialog';
 import SearchComponent from '@/components/SearchComponent';
 import { useSession } from "next-auth/react";
-import { Session } from "next-auth";
+import { Separator } from "@/components/ui/separator"
 
 export default function Dashboard() {
   const { status } = useSession();
@@ -26,10 +26,10 @@ export default function Dashboard() {
       if (response.status === 200) {
         setDocuments(response.data);
       } else {
-        console.error('Failed to fetch documents');
+        console.error('Falha ao carregar os documentos');
       }
     } catch (error) {
-      console.error('Error fetching documents:', error);
+      console.error('Falha ao carregar os documentos:', error);
     }
   };
 
@@ -52,11 +52,15 @@ export default function Dashboard() {
   const displayDocuments = isSearching ? searchResults : documents;
 
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-32 w-32"></div>
+      </div>
+    );
   }
 
   if (status === "unauthenticated") {
-    return <div>Access Denied</div>;
+    return <div>Acesso negado</div>;
   }
 
   return (
@@ -68,7 +72,7 @@ export default function Dashboard() {
           <SearchComponent handleSearch={handleSearch} />
         </div>
       </div>
-
+      <Separator className="my-4" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {displayDocuments.length === 0 ? (
           <p className="text-center col-span-full text-gray-500">

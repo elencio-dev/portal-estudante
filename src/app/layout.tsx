@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "PEPRO",
-  description: "Faça upload dos teus trabalhos, listas, testes passados para ajudar que estão a cursar á displina",
+  description: "Faça upload dos seus trabalhos, listas e testes anteriores para ajudar outros alunos que estão cursando a disciplina.",
 };
 
 export default function RootLayout({

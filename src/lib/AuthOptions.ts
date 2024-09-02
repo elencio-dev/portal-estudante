@@ -13,7 +13,7 @@ export const authOptions: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
-          throw new Error("Email and password are required");
+          throw new Error("Email e o seu password são obrigatórios");
         }
 
         const user = await prisma.user.findFirst({
@@ -21,7 +21,7 @@ export const authOptions: AuthOptions = {
         });
 
         if (!user || !user.id || !user.hashedPassword) {
-          throw new Error("User not found");
+          throw new Error("Usuario não encontrado");
         }
 
         const currentHashedPassword = await bcrypt.hash(credentials.password, 12);
