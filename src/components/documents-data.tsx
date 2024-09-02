@@ -1,3 +1,8 @@
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { FileIcon, ExternalLinkIcon } from "lucide-react"
+
 interface DocumentDataInterface {
   name: string;
   professor: string;
@@ -12,16 +17,46 @@ interface DocumentDataInterface {
 export default function DocumentsData({ fileUrl, fileName, name, professor, semester, discipline }: DocumentDataInterface) {
   return (
     <>
-      <h3 className="font-semibold text-lg mb-2">{name}</h3>
-      <p className="text-sm text-gray-600 mb-1">Professor: {professor}</p>
-      <p className="text-sm text-gray-600 mb-1">Semestre: {semester}</p>
-      <p className="text-sm text-gray-600 mb-1">Disciplina: {discipline}</p>
-      <p className="text-sm text-gray-600 mb-1">Documento: {fileName}</p>
-      {fileUrl && (
-        <a href={fileUrl} className="text-sm text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-600 transition-colors">
-          Ver documento
-        </a>
-      )}
+     <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <FileIcon className="h-5 w-5" />
+          {name}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary">Professor</Badge>
+            <span className="text-sm">{professor}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary">Semestre</Badge>
+            <span className="text-sm">{semester}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary">Disciplina</Badge>
+            <span className="text-sm">{discipline}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Badge variant="secondary">Documento</Badge>
+            <span className="text-sm">{fileName}</span>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter>
+        {fileUrl ? (
+          <Button asChild className="w-full">
+            <a href={fileUrl} target="_blank" rel="noopener noreferrer">
+              Ver documento
+              <ExternalLinkIcon className="ml-2 h-4 w-4" />
+            </a>
+          </Button>
+        ) : (
+          <Button disabled className="w-full">Documento não disponível</Button>
+        )}
+      </CardFooter>
+    </Card>
     </>
   )
 }

@@ -47,8 +47,7 @@ export default function Login() {
         console.error('Login failed:', result.error);
       } else if (result?.ok) {
         toast({
-          title: "Documento cadastrado com sucesso!",
-          description: "Feliz com o seu Upload",
+          title: "Login com sucesso!",
         });
         router.push('/Home');
       }

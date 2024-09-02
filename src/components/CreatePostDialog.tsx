@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button"
+import { PlusIcon } from "lucide-react"
 import { useForm } from "react-hook-form";
 import {
   Form,
@@ -20,7 +22,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast"
 import { useState } from 'react';
 
@@ -95,7 +96,10 @@ export default function CreatePostDialog() {
     <>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline">Cadastrar Documento</Button>
+          <Button className="gap-2" variant="outline">
+            <PlusIcon className="h-4 w-4" />
+            <span>Cadastrar Documento</span>
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
