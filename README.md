@@ -1,36 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Aplicação de Gerenciamento de Documentos
 
-## Getting Started
+Esta é uma aplicação simples de gerenciamento de Documentos desenvolvida para ajudar no acesso a documentos passados para disciplinas antigas da UNILAB. O objetivo principal é facilitar o compartilhamento e a organização de materiais acadêmicos entre os estudantes.
 
-First, run the development server:
+## Funcionalidades
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Adicionar novos documentos
+  - Upload de arquivos em diversos formatos (PDF, DOC, PPT, etc.)
+  - Categorização por disciplina, semestre e tipo de documento
+- Pesquisar Documentos
+  - Busca por palavras-chave, disciplina, professor ou data
+  - Filtros avançados para refinar os resultados
+- Visualizar Documentos
+  - Pré-visualização de documentos diretamente no navegador
+  - Download de arquivos para acesso offline
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Benefícios
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Centralização de materiais acadêmicos em um único local
+- Facilidade de acesso a documentos de semestres anteriores
+- Colaboração entre estudantes para compartilhar conhecimento
+- Redução do tempo gasto procurando materiais de estudo
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Como Usar
 
-## Learn More
+1. Faça login na plataforma usando suas credenciais da UNILAB
+2. Navegue pelas categorias ou use a barra de pesquisa para encontrar documentos
+3. Visualize ou faça download dos arquivos desejados
+4. Para contribuir, use a opção "Adicionar novo documento" e siga as instruções
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologias Utilizadas
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Frontend & Backend: Next.js
+- Banco de Dados: MongoDB
+- Armazenamento de Arquivos: Firebase
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contribuição
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Sua contribuição é bem-vinda! Se você tem sugestões de melhorias ou encontrou algum bug, por favor, abra uma issue ou envie um pull request.
