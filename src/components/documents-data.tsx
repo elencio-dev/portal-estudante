@@ -2,17 +2,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { FileIcon, ExternalLinkIcon } from "lucide-react"
-
-interface DocumentDataInterface {
-  name: string;
-  professor: string;
-  semester: string;
-  discipline: string;
-  fileUrl?: string;
-  fileName: string;
-  file?: File;
-}
-
+import { DocumentDataInterface } from "@/types/interface.document"
 
 export default function DocumentsData({ fileUrl, fileName, name, professor, semester, discipline }: DocumentDataInterface) {
   return (

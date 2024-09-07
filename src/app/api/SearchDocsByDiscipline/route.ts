@@ -3,20 +3,19 @@ import prisma from '@/lib/prismadb';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const query = searchParams.get('query');
+  const disciplineId = searchParams.get('disciplineId');
+  const semesterId = searchParams.get('semesterId');
 
-  if (!query) {
-    return NextResponse.json({ error: 'Query parameter is required' }, { status: 400 });
+  if (!disciplineId && !semesterId) {
+    return NextResponse.json({ error: 'Discipline ID or Semester ID is required' }, { status: 400 });
   }
 
   try {
     const documents = await prisma.document.findMany({
       where: {
         OR: [
-          { name: { contains: query, mode: 'insensitive' } },
-          { professor: { contains: query, mode: 'insensitive' } },
-          { semester: { name: { contains: query, mode: 'insensitive' } } },
-          { discipline: { name: { contains: query, mode: 'insensitive' } } },
+          { disciplineId: disciplineId || undefined },
+          { semesterId: semesterId || undefined },
         ],
       },
       select: {
@@ -29,16 +28,6 @@ export async function GET(request: Request) {
           },
         },
         discipline: {
-          select: {
-            name: true,
-          },
-        },
-        course: {
-          select: {
-            name: true,
-          },
-        },
-        institute: {
           select: {
             name: true,
           },

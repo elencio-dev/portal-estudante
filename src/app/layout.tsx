@@ -22,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextAuthSession>
           <Header />
-          {children}
+          <main className="pt-16"> {/* Add padding-top to account for fixed header */}
+            {children}
+          </main>
           <Toaster />
         </NextAuthSession>
       </body>

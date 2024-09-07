@@ -13,8 +13,7 @@ export default function Header() {
       <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <Image src="/Logo.png" alt="PEPRO Logo" width={40} height={40} className="rounded" />
-            <span className="text-xl font-bold text-primary">PEPRO</span>
+            <span className="text-xl font-bold text-primary">Acervo Estudantil</span>
           </Link>
         </div>
         {/* Navigation menu */}

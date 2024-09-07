@@ -1,5 +1,5 @@
 import { Input } from "./ui/input";
-import { PlusIcon, SearchIcon } from "lucide-react"
+import { SearchIcon } from "lucide-react"
 
 export default function SearchComponent({ handleSearch }: any) {
   return (

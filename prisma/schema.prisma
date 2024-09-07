@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -21,14 +15,67 @@ model User {
   updatedAt      DateTime @updatedAt
 }
 
+model Institute {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String     @unique
+  courses   Course[]
+  documents Document[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Course {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  instituteId String       @db.ObjectId
+  institute   Institute    @relation(fields: [instituteId], references: [id])
+  disciplines Discipline[]
+  documents   Document[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@unique([name, instituteId])
+}
+
+model Discipline {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  courseId  String     @db.ObjectId
+  course    Course     @relation(fields: [courseId], references: [id])
+  semesters Semester[]
+  documents Document[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([name, courseId])
+}
+
+model Semester {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  disciplineId String?     @db.ObjectId
+  discipline   Discipline? @relation(fields: [disciplineId], references: [id])
+  documents    Document[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@unique([name, disciplineId])
+}
+
 model Document {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  professor  String
-  semester   String
-  discipline String
-  fileName   String
-  fileUrl    String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  professor    String
+  disciplineId String     @db.ObjectId
+  discipline   Discipline @relation(fields: [disciplineId], references: [id])
+  semesterId   String     @db.ObjectId
+  semester     Semester   @relation(fields: [semesterId], references: [id])
+  courseId     String     @db.ObjectId
+  course       Course     @relation(fields: [courseId], references: [id])
+  instituteId  String     @db.ObjectId
+  institute    Institute  @relation(fields: [instituteId], references: [id])
+  fileName     String
+  fileUrl      String
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
 }
