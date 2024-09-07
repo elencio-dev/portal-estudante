@@ -217,24 +217,7 @@ export default function Dashboard() {
               </div>
             </div>
             
-            {selectedInstitute && (
-              <nav className="flex flex-wrap items-center space-x-2 text-sm text-muted-foreground">
-                {[
-                  { label: selectedInstitute, action: () => { setSelectedInstitute(null); setSelectedCourse(null); setSelectedSemester(null); setSelectedDiscipline(null); }, icon: Building2 },
-                  { label: selectedCourse?.name, action: () => { setSelectedCourse(null); setSelectedSemester(null); setSelectedDiscipline(null); }, icon: GraduationCap },
-                  { label: selectedSemester?.name, action: () => { setSelectedSemester(null); setSelectedDiscipline(null); }, icon: CalendarDays },
-                  { label: selectedDiscipline?.name, action: () => setSelectedDiscipline(null), icon: BookOpen }
-                ].filter(item => item.label).map((item, index, array) => (
-                  <div key={item.label} className="flex items-center mb-2">
-                    <Button variant="link" className="p-0 h-auto font-normal flex items-center" onClick={item.action}>
-                      {item.icon && <item.icon className="mr-1 h-4 w-4" />}
-                      <span className="truncate max-w-[100px] sm:max-w-none">{item.label}</span>
-                    </Button>
-                    {index < array.length - 1 && <ChevronRight className="h-4 w-4 mx-1" />}
-                  </div>
-                ))}
-              </nav>
-            )}
+            {selectedInstitute && <Breadcrumb />}
 
             {selectedInstitute && !selectedCourse && (
               <Section title="Cursos" items={courses} onItemClick={setSelectedCourse} />
