@@ -19,8 +19,8 @@ export async function GET(request: Request) {
       },
     });
 
-    if (!semester) {
-      return NextResponse.json({ message: 'Semestre não encontrado' }, { status: 404 });
+    if (!semester || !semester.disciplineId) {
+      return NextResponse.json({ message: 'Semestre não encontrado ou sem disciplina associada' }, { status: 404 });
     }
 
     const discipline = await prisma.discipline.findUnique({

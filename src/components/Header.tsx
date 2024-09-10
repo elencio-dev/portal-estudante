@@ -9,7 +9,7 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-background border-b fixed top-0 left-0 right-0 z-50">
+      <header className="bg-background border-b fixed top-0 left-0 right-0 z-50">
       <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
