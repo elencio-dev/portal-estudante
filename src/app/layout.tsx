@@ -18,14 +18,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="pt-BR">
+      <body className={`${inter.className}`}>
         <NextAuthSession>
           <Header />
-          <main className="pt-16"> {/* Add padding-top to account for fixed header */}
-            {children}
-          </main>
-          <Toaster />
+          <div className="flex flex-col min-h-screen">
+            <main className="flex-grow "> {/* Add top margin to account for fixed header */}
+              {children}
+            </main>
+            <Toaster />
+          </div>
         </NextAuthSession>
       </body>
     </html>

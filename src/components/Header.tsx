@@ -9,14 +9,13 @@ export default function Header() {
   const { data: session } = useSession();
 
   return (
-      <header className="bg-background border-b fixed top-0 left-0 right-0 z-50">
-      <div className="container mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
+    <header className="bg-background border-b fixed top-0 left-0 right-0 z-50">
+      <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
             <span className="text-xl font-bold text-primary">Acervo Estudantil</span>
           </Link>
         </div>
-        {/* Navigation menu */}
         <nav className="flex items-center space-x-4">
           {session ? (
             <Button

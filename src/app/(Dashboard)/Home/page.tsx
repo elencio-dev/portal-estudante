@@ -140,14 +140,14 @@ export default function Dashboard() {
 
   if (status === "loading" || isLoading) {
     return (
-      <div className="flex justify-center items-center h-screen">
+      <div className="flex justify-center items-center h-screen mt-16">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     )
   }
 
   if (status === "unauthenticated") {
-    return <div className="flex justify-center items-center h-screen text-xl font-semibold">Acesso negado</div>
+    return <div className="flex justify-center items-center h-screen mt-16 text-xl font-semibold">Acesso negado</div>
   }
 
   const Sidebar = () => (
@@ -170,7 +170,7 @@ export default function Dashboard() {
   )
 
   const Breadcrumb = () => (
-    <nav className="flex flex-wrap items-center space-x-2 text-sm text-muted-foreground bg-background p-2 sticky top-0 z-10 overflow-x-auto whitespace-nowrap">
+    <nav className="flex flex-wrap items-center space-x-2 text-sm text-muted-foreground bg-background p-2 sticky top-16 z-10 overflow-x-auto whitespace-nowrap">
       {[
         { label: selectedInstitute, action: () => { setSelectedInstitute(null); setSelectedCourse(null); setSelectedSemester(null); setSelectedDiscipline(null); }, icon: Building2 },
         { label: selectedCourse?.name, action: () => { setSelectedCourse(null); setSelectedSemester(null); setSelectedDiscipline(null); }, icon: GraduationCap },
@@ -189,7 +189,7 @@ export default function Dashboard() {
   )
 
   return (
-    <div className="flex flex-col h-screen bg-background">
+    <div className="flex flex-col h-screen bg-background pt-16">
       <div className="flex items-center justify-between p-4 lg:hidden">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
