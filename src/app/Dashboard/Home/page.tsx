@@ -29,7 +29,7 @@ import {
 import { SignOutButton } from "@/components/auth/sign-out-button";
 
 export default function Dashboard() {
-  const { data, status } = useSession();
+  const { data } = useSession();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [docs, setDocs] = useState<Document[]>([]);
   const [institutes, setInstitutes] = useState<Institute[]>([]);
@@ -174,14 +174,6 @@ export default function Dashboard() {
     return (
       <div className="flex justify-center items-center h-screen mt-16">
         <Loader2 className="h-8 w-8 animate-spin" />
-      </div>
-    );
-  }
-
-  if (status === "unauthenticated") {
-    return (
-      <div className="flex justify-center items-center h-screen mt-16 text-xl font-semibold">
-        Acesso negado
       </div>
     );
   }
