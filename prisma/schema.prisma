@@ -8,11 +8,43 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  email          String   @unique
-  hashedPassword String
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  email         String    @unique
+  name          String?
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  account       Account[]
+}
+
+model Account {
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId // Reference to the User ID (ObjectId stored as a string)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expiresAt         Int? // BigInt in SQL can be represented as Int in MongoDB
+  idToken           String? @db.String
+  scope             String?
+  sessionState      String?
+  tokenType         String?
+
+  user User @relation(fields: [userId], references: [id]) // Relates to User model
+
+  @@unique([provider, providerAccountId]) // Index for querying accounts by provider
+}
+
+// VerificationToken collection
+model VerificationToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String // Indexed for fast lookups
+  expires    DateTime
+  token      String
+
+  @@unique([identifier, token])
 }
 
 model Institute {

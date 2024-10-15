@@ -1,36 +1,112 @@
-import Login from "@/components/Login";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { BookOpen, FileText, CheckSquare } from 'lucide-react'
+"use client";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { FcGoogle } from "react-icons/fc";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { handleEmailSignIn } from "@/lib/auth/emailSignInServerAction";
+import { handleGoogleSignIn } from "@/lib/auth/googleSignInServerAction";
+import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+
+export default function LoginPage() {
+  const [isPending, startTransition] = useTransition();
+  const [email, setEmail] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isAuthenticated = await checkIsAuthenticated();
+      if (isAuthenticated) {
+        router.push("/Dashboard/Home");
+      }
+    };
+    checkAuth();
+  }, [router]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    startTransition(async () => {
+      try {
+        await handleEmailSignIn(email);
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  };
+
   return (
-    <main className="flex min-h-screen flex-col md:flex-row items-center justify-between p-8 md:p-24 mt-16 md:mt-0">
-      <div className="w-full md:w-1/2 max-w-2xl mx-auto mb-12 md:mb-0">
-        <h1 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">Bem-vindo ao Acervo Estudantil </h1>
-        <p className="text-xl mb-8 text-gray-600">
-          Compartilhe e acesse provas, listas e testes passados dos estudantes da UNILAB.
-          Juntos, podemos nos preparar melhor e alcançar o sucesso acadêmico!
-        </p>
-        <div className="bg-white p-8 rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4 text-gray-700">Recursos Disponíveis</h2>
-          <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <FileText className="mr-2 h-5 w-5 text-blue-500" />
-                    <span>Provas anteriores de diversas disciplinas</span>
-                  </li>
-                  <li className="flex items-center">
-                    <BookOpen className="mr-2 h-5 w-5 text-blue-500" />
-                    <span>Listas de exercícios resolvidos</span>
-                  </li>
-                  <li className="flex items-center">
-                    <CheckSquare className="mr-2 h-5 w-5 text-blue-500" />
-                    <span>Testes práticos com gabaritos</span>
-                  </li>
-                </ul>
+    <div className="flex min-h-screen items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-4 text-gray-900">
+            Bem-vindo ao Acervo Estudantil
+          </h1>
+          <p className="text-base text-gray-600">
+            Compartilhe e acesse provas, listas e testes passados dos estudantes
+            da UNILAB. Juntos, podemos nos preparar melhor e alcançar o sucesso
+            acadêmico!
+          </p>
         </div>
+
+        <Card className="">
+          <CardHeader>
+            <CardTitle className="text-2xl font-bold text-center text-gray-900">
+              Entrar
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="email" className="text-gray-700">
+                  Email
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  maxLength={320}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={isPending}
+                  required
+                  className="border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-colors duration-200"
+                disabled={isPending}
+              >
+                {isPending ? <>Entrando...</> : "Entrar com Email"}
+              </Button>
+            </form>
+
+            <div className="relative">
+              <Separator className="my-4" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="bg-white px-2 text-xs text-gray-500">
+                  Ou continue com
+                </span>
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+              onClick={() => handleGoogleSignIn()}
+              disabled={isPending}
+            >
+              <FcGoogle className="w-5 h-5 mr-2" />
+              Entrar com Google
+            </Button>
+          </CardContent>
+        </Card>
       </div>
-      <Login />
-    </main>
+    </div>
   );
 }

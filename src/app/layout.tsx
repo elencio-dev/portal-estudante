@@ -1,15 +1,15 @@
+import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import Header from "../components/Header";
-import NextAuthSession from "@/providers/NextAuthSession";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PEPRO",
-  description: "Faça upload dos seus trabalhos, listas e testes anteriores para ajudar outros alunos que estão cursando a disciplina.",
+  title: "Acervo",
+  description:
+    "Faça upload dos seus trabalhos, listas e testes anteriores para ajudar outros alunos que estão cursando a disciplina.",
 };
 
 export default function RootLayout({
@@ -20,15 +20,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${inter.className}`}>
-        <NextAuthSession>
-          <Header />
-          <div className="flex flex-col min-h-screen">
-            <main className="flex-grow "> {/* Add top margin to account for fixed header */}
-              {children}
-            </main>
+        <div className="flex flex-col min-h-screen">
+          <SessionProvider>
+            <main className="flex-grow ">{children}</main>
             <Toaster />
-          </div>
-        </NextAuthSession>
+          </SessionProvider>
+        </div>
       </body>
     </html>
   );

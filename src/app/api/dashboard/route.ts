@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prismadb";
+
 import { z } from "zod";
 import { uploadFileToFirebase } from "@/lib/uploadToFirebase";
+import { prisma } from "@/lib/prismadb";
 
 const formSchema = z.object({
   name: z.string().min(1, "Nome é obrigatório"),
@@ -25,16 +26,6 @@ export async function POST(req: Request) {
     const semester = formData.get('semester') as string;
     const disciplineName = formData.get('discipline') as string;
     const file = formData.get('file') as File;
-
-    // Log dos dados recebidos
-    console.log("Dados recebidos no backend:");
-    console.log("Nome:", name);
-    console.log("Professor:", professor);
-    console.log("Instituto:", instituteName);
-    console.log("Curso:", courseName);
-    console.log("Semestre:", semester);
-    console.log("Disciplina:", disciplineName);
-    console.log("Arquivo:", file ? file.name : "Nenhum arquivo");
 
     const validatedData = formSchema.parse({
       name,
@@ -115,7 +106,6 @@ export async function POST(req: Request) {
       },
     });
 
-    console.log("Documento criado:", document);
 
     return NextResponse.json({ message: "Documento cadastrado com sucesso", document }, { status: 201 });
   } catch (error) {
