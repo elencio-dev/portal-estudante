@@ -10,7 +10,7 @@ export async function middleware(req: any) {
   const normalizedPath = pathname.toLowerCase().replace(/\/$/, '');
 
   // Rotas protegidas
-  const protectedRoutes = ['/Dashboard?Home']; 
+  const protectedRoutes = ['/Dashboard/Home']; 
 
   // Rotas públicas que não devem ser acessadas por usuários autenticados
   const authRoutes = ['/',];
